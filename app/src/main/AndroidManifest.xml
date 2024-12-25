@@ -21,6 +21,10 @@
             android:exported="true">
         </activity>
         <activity
+            android:name=".StudentActivity"
+            android:exported="true">
+        </activity>
+        <activity
             android:name=".AddStudentActivity"
             android:exported="false" />
         <activity

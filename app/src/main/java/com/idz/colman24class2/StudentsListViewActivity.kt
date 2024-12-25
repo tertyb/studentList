@@ -1,5 +1,6 @@
 package com.idz.colman24class2
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -24,22 +25,26 @@ class StudentsListViewActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_students_list_view)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        // TODO: 1. Set xml layout ✅
-        // TODO: 2. Set instance of list view in activity ✅
-        // TODO: 3. Set adapter ✅
-        // TODO: 4. Create rows layout ✅
-        // TODO: 5. Set dynamic data (MVP) 👨‍🎓
-        // TODO: 6. On click on checkbox
-
         students = Model.shared.students
         val listView: ListView = findViewById(R.id.students_list_view)
         listView.adapter = StudentsAdapter()
+
+        // Handle student row clicks
+        listView.setOnItemClickListener { _, _, position, _ ->
+            val selectedStudent = students?.get(position)
+            selectedStudent?.let { student ->
+                Log.d("TAG", "Clicked on student: ${student.name}, ID: ${student.id}")
+                val intent = Intent(this, StudentActivity::class.java)
+                startActivity(intent)
+            }
+        }
     }
 
     inner class StudentsAdapter(): BaseAdapter() {

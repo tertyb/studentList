@@ -1,5 +1,6 @@
 package com.idz.colman24class2
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import androidx.activity.enableEdgeToEdge
@@ -13,12 +14,7 @@ class MainActivity : AppCompatActivity() {
     var blueFragment: BlueFragment? = null
 
     private var fragmentOne: StudentsListFragment? = null
-    private var fragmentTwo: BlueFragment? = null
-    private var fragmentThree: BlueFragment? = null
-    private var fragmentFour: BlueFragment? = null
-    private var buttonOne: Button? = null
-    private var buttonTwo: Button? = null
-    private var buttonThree: Button? = null
+
     private var buttonFour: Button? = null
 
     private var inDisplayFragment: Fragment? = null
@@ -33,38 +29,12 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        // TODO: 1 - Set MainActivity Launcher ✅
-        // TODO: 2 - Create fragment from xml ✅
-        // TODO: 3 - Create a fragment programmatically ✅
-        // TODO: 4 - Manage nav args ✅
-        // TODO: 5 - Create a tab bar with multiple fragments 👨‍🎓
-        // TODO: 6 - Refactor students list
-        // TODO: 7 - GPS/Firebase
-
         fragmentOne = StudentsListFragment()
-        fragmentTwo = BlueFragment.newInstance("2️⃣")
-        fragmentThree = BlueFragment.newInstance("3️⃣")
-        fragmentFour = BlueFragment.newInstance("4️⃣")
-
-        buttonOne = findViewById(R.id.main_activity_button_one)
-        buttonTwo = findViewById(R.id.main_activity_button_two)
-        buttonThree = findViewById(R.id.main_activity_button_three)
         buttonFour = findViewById(R.id.main_activity_button_four)
 
-        buttonOne?.setOnClickListener {
-            display(fragmentOne)
-        }
-
-        buttonTwo?.setOnClickListener {
-            display(fragmentTwo)
-        }
-
-        buttonThree?.setOnClickListener {
-            display(fragmentThree)
-        }
-
         buttonFour?.setOnClickListener {
-            display(fragmentFour)
+            val intent = Intent(this, AddStudentActivity::class.java)
+            startActivity(intent)
         }
 
         display(fragmentOne)

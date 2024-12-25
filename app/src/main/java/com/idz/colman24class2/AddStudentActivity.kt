@@ -22,9 +22,20 @@ class AddStudentActivity : AppCompatActivity() {
 
         val saveButton: Button = findViewById(R.id.add_student_activity_save_button)
         val cancelButton: Button = findViewById(R.id.add_student_activity_cancel_button)
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, StudentFragment())
+                .commit()
+        }
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, StudentFragment())
+                .commit()
+        }
 
-        val nameEditText: EditText = findViewById(R.id.add_student_activity_name_edit_text)
-        val idEditText: EditText = findViewById(R.id.add_student_activity_id_edit_text)
+
+//        val nameEditText: EditText = findViewById(R.id.add_student_activity_name_edit_text)
+//        val idEditText: EditText = findViewById(R.id.add_student_activity_id_edit_text)
 
         val savedMessageTextView: TextView = findViewById(R.id.add_student_activity_save_message_text_view)
 
@@ -33,7 +44,7 @@ class AddStudentActivity : AppCompatActivity() {
         }
 
         saveButton.setOnClickListener {
-            savedMessageTextView.text = "Name: ${nameEditText.text} ID: ${idEditText.text} is saved!!!..."
+//            savedMessageTextView.text = "Name: ${nameEditText.text} ID: ${idEditText.text} is saved!!!..."
         }
     }
 }
