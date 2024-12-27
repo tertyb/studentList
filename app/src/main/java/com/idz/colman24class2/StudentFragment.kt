@@ -1,7 +1,9 @@
 package com.idz.colman24class2
 
+import android.content.Intent
 import android.content.Context
 import android.os.Bundle
+import android.text.Editable
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -53,11 +55,41 @@ class StudentFragment: Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.student_fragment, container, false)
 
+        val studentName = activity?.intent?.getStringExtra("STUDENT_NAME")
+        val studentId = activity?.intent?.getStringExtra("STUDENT_ID")
+        val studentPhone = activity?.intent?.getStringExtra("STUDENT_PHONE")
+        val studentAddress = activity?.intent?.getStringExtra("STUDENT_ADDRESS")
+        val studentChecked = activity?.intent?.getBooleanExtra("STUDENT_CHECKED", false)
+
         nameEditText = view.findViewById(R.id.student_fragment_name)
         idEditText = view.findViewById(R.id.student_fragment_id)
         phoneEditText = view.findViewById(R.id.student_fragment_phone)
         addressEditText = view.findViewById(R.id.student_fragment_address)
         isCheckedCheckBox = view.findViewById(R.id.student_fragment_checked)
+
+        if (studentName != null) {
+            nameEditText?.text = Editable.Factory.getInstance().newEditable(studentName)
+
+        }
+
+        if (studentId != null) {
+            idEditText?.text = Editable.Factory.getInstance().newEditable(studentId)
+
+        }
+
+        if (studentPhone != null) {
+            phoneEditText?.text =  Editable.Factory.getInstance().newEditable(studentPhone)
+        }
+
+        if (studentAddress != null) {
+            addressEditText?.text =  Editable.Factory.getInstance().newEditable(studentAddress)
+        }
+
+        isCheckedCheckBox?.isChecked = studentChecked ?: false
+
+
+
+
 
         return view
     }

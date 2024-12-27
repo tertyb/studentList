@@ -17,8 +17,7 @@ class StudentActivity : AppCompatActivity() {
     private var studentId: String? = null
     private var studentPhone: String? = null
     private var studentAddress: String? = null
-    private var studentChecked:Boolean? = false
-
+    private var studentChecked: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +34,7 @@ class StudentActivity : AppCompatActivity() {
         studentId = intent.getStringExtra("STUDENT_ID")
         studentPhone = intent.getStringExtra("STUDENT_PHONE")
         studentAddress = intent.getStringExtra("STUDENT_ADDRESS")
-        studentChecked = intent.getBooleanExtra("STUDENT_CHECKED",false)
+        studentChecked = intent.getBooleanExtra("STUDENT_CHECKED", false)
 
         val nameTextView: TextView = findViewById(R.id.studentName)
         val idTextView: TextView = findViewById(R.id.studentId)
@@ -47,20 +46,21 @@ class StudentActivity : AppCompatActivity() {
         nameTextView.text = studentName ?: "No Name"
         idTextView.text = studentId.toString()
         phoneTextView.text = studentPhone ?: "No Phone"
-        addressTextView.text = studentAddress ?: "No Adress"
-        checkedView.isChecked = studentChecked ?: false
-
+        addressTextView.text = studentAddress ?: "No Address"
+        checkedView.isChecked = studentChecked
 
         editButton = findViewById(R.id.edit_button)
 
         editButton?.setOnClickListener {
-            val intent = Intent(this, EditStudentActivity::class.java)
+            // Create an intent to launch EditStudentActivity and pass the data
+            val intent = Intent(this, EditStudentActivity::class.java).apply {
+                putExtra("STUDENT_NAME", studentName)
+                putExtra("STUDENT_ID", studentId)
+                putExtra("STUDENT_PHONE", studentPhone)
+                putExtra("STUDENT_ADDRESS", studentAddress)
+                putExtra("STUDENT_CHECKED", studentChecked)
+            }
             startActivity(intent)
         }
-
-
-
     }
-
-
 }
