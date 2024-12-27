@@ -7,6 +7,21 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <!-- Title TextView -->
+    <TextView
+        android:id="@+id/main_activity_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Students List"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/main_activity_frame_layout"
+        android:layout_marginTop="16dp" />
+
     <FrameLayout
         android:id="@+id/main_activity_frame_layout"
         android:layout_width="0dp"
@@ -14,9 +29,7 @@
         app:layout_constraintBottom_toTopOf="@+id/main_activity_button_four"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></FrameLayout>
-
-
+        app:layout_constraintTop_toBottomOf="@+id/main_activity_title" />
 
     <Button
         android:id="@+id/main_activity_button_four"
@@ -28,8 +41,6 @@
         app:cornerRadius="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-         />
-
+        app:layout_constraintHorizontal_bias="0.5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

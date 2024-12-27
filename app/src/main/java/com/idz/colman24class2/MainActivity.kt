@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
+import com.idz.colman24class2.model.Student
 
 class MainActivity : AppCompatActivity() {
 
@@ -34,10 +35,36 @@ class MainActivity : AppCompatActivity() {
 
         buttonFour?.setOnClickListener {
             val intent = Intent(this, AddStudentActivity::class.java)
-            startActivity(intent)
+            startActivityForResult(intent, ADD_STUDENT_REQUEST_CODE)
+
         }
 
         display(fragmentOne)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == ADD_STUDENT_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+            val name =  data.getStringExtra("name") ?: ""
+            val id = data.getStringExtra("id") ?: ""
+            val avatarUrl = data.getStringExtra("avatarurl") ?: ""
+            val phone = data.getStringExtra("phone") ?: ""
+            val address = data.getStringExtra("address") ?: ""
+            val isChecked = data.getBooleanExtra("isChecked",false) ?: false
+
+            val newStudent = Student(
+                name = name,
+                id = id,
+                avatarUrl = "",
+                phone = phone,
+                address = address,
+                isChecked = isChecked
+            )
+            newStudent?.let {
+                // Add the new student to the fragment's adapter
+                (fragmentOne as? StudentsListFragment)?.addStudent(it)
+            }
+        }
     }
 
     private fun display(fragment: Fragment?) {
@@ -76,5 +103,9 @@ class MainActivity : AppCompatActivity() {
                 commit()
             }
         }
+    }
+
+    companion object {
+        private const val ADD_STUDENT_REQUEST_CODE = 1
     }
 }

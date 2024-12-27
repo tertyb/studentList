@@ -1,6 +1,8 @@
 package com.idz.colman24class2
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -8,6 +10,9 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.idz.colman24class2.adapter.StudentsRecyclerAdapter
+import com.idz.colman24class2.model.Model
+import com.idz.colman24class2.model.Student
 
 class AddStudentActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,9 +39,6 @@ class AddStudentActivity : AppCompatActivity() {
         }
 
 
-//        val nameEditText: EditText = findViewById(R.id.add_student_activity_name_edit_text)
-//        val idEditText: EditText = findViewById(R.id.add_student_activity_id_edit_text)
-
         val savedMessageTextView: TextView = findViewById(R.id.add_student_activity_save_message_text_view)
 
         cancelButton.setOnClickListener {
@@ -44,7 +46,35 @@ class AddStudentActivity : AppCompatActivity() {
         }
 
         saveButton.setOnClickListener {
-//            savedMessageTextView.text = "Name: ${nameEditText.text} ID: ${idEditText.text} is saved!!!..."
+            // Retrieve the fragment instance
+            val studentFragment = supportFragmentManager.findFragmentById(R.id.fragment_container) as StudentFragment
+            val student = studentFragment.getStudentData()
+
+            // Handle the student data (e.g., save it to a database or show a message)
+            saveStudentData(student)
+            savedMessageTextView.text = "Name: ${student.name} ID: ${student.id} is saved!!!..."
         }
+
+
     }
+
+    private fun saveStudentData(student: Student) {
+        // For now, just log the data, you can save it to a database, or show a confirmation message
+        Log.d("AddStudentActivity", "Saved student data: $student")
+
+        // Pass the student data back to the previous activity
+        val resultIntent = Intent().apply {
+            putExtra("name", student.name)
+            putExtra("id", student.id)
+            putExtra("phone", student.phone)
+            putExtra("address", student.address)
+            putExtra("isChecked", student.isChecked)
+        }
+        setResult(RESULT_OK, resultIntent)
+        finish()  // Finish the activity and return to the previous one
+    }
+
+
+
+
 }

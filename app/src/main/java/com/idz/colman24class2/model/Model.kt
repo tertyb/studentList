@@ -9,12 +9,14 @@ class Model private constructor() {
     }
 
     init {
-        for (i in 0..20) {
+        for (i in 0..3) {
             val student = Student(
                 name = "Name $i",
                 id = "Student ID: $i",
                 avatarUrl = "",
-                isChecked = false
+                phone = "05235675",
+                address = "hashomonai 2 tel aviv",
+                isChecked = true
             )
             students.add(student)
         }
