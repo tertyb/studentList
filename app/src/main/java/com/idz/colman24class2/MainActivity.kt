@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == ADD_STUDENT_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+        if (resultCode == RESULT_OK && data != null) {
             val name =  data.getStringExtra("name") ?: ""
             val id = data.getStringExtra("id") ?: ""
             val avatarUrl = data.getStringExtra("avatarurl") ?: ""
@@ -60,10 +60,14 @@ class MainActivity : AppCompatActivity() {
                 address = address,
                 isChecked = isChecked
             )
-            newStudent?.let {
-                // Add the new student to the fragment's adapter
-                (fragmentOne as? StudentsListFragment)?.addStudent(it)
+
+            if(requestCode == ADD_STUDENT_REQUEST_CODE) {
+                newStudent?.let {
+                    // Add the new student to the fragment's adapter
+                    (fragmentOne as? StudentsListFragment)?.addStudent(it)
+                }
             }
+
         }
     }
 
@@ -108,4 +112,6 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private const val ADD_STUDENT_REQUEST_CODE = 1
     }
+
+
 }

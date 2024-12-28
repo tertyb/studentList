@@ -9,10 +9,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.idz.colman24class2.model.Student
 
 class StudentActivity : AppCompatActivity() {
 
     private var editButton: Button? = null
+    private var backButton: Button? = null
     private var studentName: String? = null
     private var studentId: String? = null
     private var studentPhone: String? = null
@@ -50,6 +52,11 @@ class StudentActivity : AppCompatActivity() {
         checkedView.isChecked = studentChecked
 
         editButton = findViewById(R.id.edit_button)
+        backButton = findViewById(R.id.go_back_button)
+
+        backButton?.setOnClickListener {
+            finish()
+        }
 
         editButton?.setOnClickListener {
             // Create an intent to launch EditStudentActivity and pass the data
@@ -60,7 +67,37 @@ class StudentActivity : AppCompatActivity() {
                 putExtra("STUDENT_ADDRESS", studentAddress)
                 putExtra("STUDENT_CHECKED", studentChecked)
             }
-            startActivity(intent)
+            startActivityForResult(intent, EDIT_STUDENT_REQUEST_CODE)
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == EDIT_STUDENT_REQUEST_CODE && resultCode == RESULT_OK && data != null) {
+            val name =  data.getStringExtra("name") ?: ""
+            val id = data.getStringExtra("id") ?: ""
+            val avatarUrl = data.getStringExtra("avatarurl") ?: ""
+            val phone = data.getStringExtra("phone") ?: ""
+            val address = data.getStringExtra("address") ?: ""
+            val isChecked = data.getBooleanExtra("isChecked",false)
+            val previousStudentId = data.getStringExtra("previousStudentId") ?: ""
+            val delete = data.getBooleanExtra("delete",false)
+
+            val resultIntent = Intent().apply {
+                putExtra("name", name)
+                putExtra("id", id)
+                putExtra("phone", phone)
+                putExtra("address", address)
+                putExtra("isChecked", isChecked)
+                putExtra("previousStudentId", previousStudentId)
+                putExtra("delete", delete)
+            }
+            setResult(RESULT_OK, resultIntent)
+            finish()  // Finish the activity and return to the previous one
+        }
+    }
+
+    companion object {
+        private const val EDIT_STUDENT_REQUEST_CODE = 2
     }
 }
